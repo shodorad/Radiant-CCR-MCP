@@ -1,0 +1,55 @@
+/* Minimal admin styling. The brand lives in the deck and on the website;
+   this is a working surface, so it only has to be clear. */
+
+.ccr-actions {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.25rem;
+  background: #f5f7f8;
+  border: 1px solid #d8dfe2;
+  border-left: 4px solid #074661;
+}
+.ccr-actions__buttons { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+.ccr-button {
+  display: inline-block;
+  padding: .5rem 1rem;
+  border: 1px solid #074661;
+  border-radius: 3px;
+  color: #074661;
+  background: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.3;
+}
+.ccr-button:hover { background: #eaf0f2; }
+.ccr-button--primary { background: #074661; border-color: #074661; color: #fff; }
+.ccr-button--primary:hover { background: #0d3d52; color: #fff; }
+.ccr-button--small { padding: .25rem .6rem; font-size: .85em; }
+
+.ccr-alert { margin: 0 0 .875rem; padding: .625rem .875rem; border-radius: 3px; font-size: .95em; }
+.ccr-alert ul { margin: .4rem 0 0; padding-left: 1.2rem; }
+.ccr-alert--stale { background: #fff9f0; border: 1px solid #e8c98f; color: #7a4d05; }
+.ccr-alert--fit { background: #fdf1f1; border: 1px solid #e6a5a5; color: #8b1f1f; }
+
+.ccr-dashboard__intro { max-width: 46em; color: #5b6a70; }
+.ccr-dashboard__summary { margin: 0 0 1rem; font-size: 1.15em; font-weight: 600; }
+.ccr-dashboard__summary.is-stale { color: #a5670a; }
+.ccr-dashboard__summary.is-current { color: #3b6d11; }
+
+.ccr-decks { width: 100%; border-collapse: collapse; }
+.ccr-decks th, .ccr-decks td { text-align: left; padding: .625rem .75rem; border-bottom: 1px solid #e2e7e9; vertical-align: top; }
+.ccr-decks tr.is-stale { background: #fffaf3; }
+
+.ccr-badge { display: inline-block; padding: .15rem .5rem; border-radius: 999px; font-size: .8em; font-weight: 700; }
+.ccr-badge--stale { background: #ba7517; color: #fff; }
+.ccr-badge--current { background: #91c36c; color: #14350a; }
+.ccr-note { display: block; margin-top: .3rem; font-size: .82em; color: #7a6a55; }
+
+/* A blocking issue is different news from a tight box: no deck exists at all. */
+.ccr-alert--blocked { background: #fbe9e9; border: 1px solid #d98080; color: #7a1414; }
+
+/* The slides of one deck, listed under its name. A deck is several slides
+   since unwelding phase 3, and the staleness flag is per slide. */
+.ccr-slides { margin: .35rem 0 0; padding-left: 1.1rem; font-size: .82rem; color: #555; }
+.ccr-slides li.is-stale { color: #a4400a; }
+.ccr-builder__intro { max-width: 46rem; }

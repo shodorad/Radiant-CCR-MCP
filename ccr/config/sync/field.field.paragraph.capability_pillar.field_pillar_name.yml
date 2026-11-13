@@ -1,0 +1,19 @@
+uuid: 33b73c5e-1fd1-4c1d-9780-15750076b5f8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pillar_name
+    - paragraphs.paragraphs_type.capability_pillar
+id: paragraph.capability_pillar.field_pillar_name
+field_name: field_pillar_name
+entity_type: paragraph
+bundle: capability_pillar
+label: Name
+description: 'The pillar, named. The deck template you generate into decides how much of it fits.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

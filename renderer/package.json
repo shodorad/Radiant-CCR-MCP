@@ -1,0 +1,28 @@
+{
+  "name": "ccr-renderer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CCR POC — renders a content record into on-brand Radiant slides by template-fill, and assembles several of them into one deck.",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js",
+    "render:fixture": "node cli.js --fixture ../fixtures/company-overview.json --select items=digital-strategy,product-development,cloud-transformation,analytics-data-science,organizational-transformation --out out/company-overview.pptx",
+    "render:ccr": "node cli.js --ccr --out out/company-overview.pptx",
+    "render:deck": "node cli.js --deck ../fixtures/company-overview.deck.json --out out/deck.pptx",
+    "build:template": "node template/extract-template.js",
+    "build:slide": "node template/extract-slide.js",
+    "name:slots": "node template/name-slots.js --write",
+    "validate": "node validate.js out/company-overview.pptx",
+    "validate:deck": "node validate.js out/deck.pptx",
+    "check:powerpoint": "node ../tools/open-in-powerpoint.js out/deck.pptx"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.126.0",
+    "jszip": "^3.10.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

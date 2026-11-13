@@ -1,0 +1,20 @@
+{
+  "headline": "Case Study | Dispatch Modernization for Kestrelmoor Freight Cooperative",
+  "solution_name": "AI-enabled dispatch modernization",
+  "client_summary": "Kestrelmoor Freight Cooperative is a member-owned freight network of about 1,400 independent carriers across nine US states.",
+  "problem": "<p>Dispatch ran on a 1990s IBM i system with 310,000 lines of RPG. Loads were keyed in by hand and offered to carriers by phone, taking a median of 47 minutes to place, and trucks often ran home empty. Two of the four people who understood the code were close to retiring.</p><p>Radiant converted the RPG estate to Java services with AI-assisted code conversion, reviewed by engineers and tested against a year of real loads, and built load matching and a carrier app on top. The legacy system was switched off in month nine, on schedule.</p>",
+  "solutions": [
+    { "key": "s1", "weight": 1, "name": "AI-assisted RPG to Java conversion" },
+    { "key": "s2", "weight": 2, "name": "Load-matching service" },
+    { "key": "s3", "weight": 3, "name": "Carrier mobile app" },
+    { "key": "s4", "weight": 4, "name": "Telematics data platform" },
+    { "key": "s5", "weight": 5, "name": "Regression tests from real loads" },
+    { "key": "s6", "weight": 6, "name": "Dispatcher change management" }
+  ],
+  "metrics": [
+    { "key": "m1", "weight": 1, "text": "<strong>74% reduction</strong> in time to place a load" },
+    { "key": "m2", "weight": 2, "text": "<strong>18% fewer</strong> empty miles across the fleet" },
+    { "key": "m3", "weight": 3, "text": "<strong>82% of carriers</strong> active in the app in six months" },
+    { "key": "m4", "weight": 4, "text": "<strong>Anticipated 35% lower</strong> annual maintenance cost" }
+  ]
+}

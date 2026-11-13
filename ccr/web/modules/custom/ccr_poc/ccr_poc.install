@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Schema changes to the deck log.
+ *
+ * Both Drupal instances are built by re-runnable scripts rather than click
+ * work, so a fresh install picks the new field up from the entity definition
+ * and never runs these. They exist for the machine that already has a deck log
+ * with rows in it, which is the demo laptop.
+ */
+
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Add the rendered-lines snapshot to the deck log.
+ *
+ * Existing rows get NULL, which every reader treats as "cannot tell what
+ * changed" and answers with the timestamp instead. They are not backfilled:
+ * the lines those decks carried are not recoverable, and writing today's lines
+ * into a row generated last week would assert that nothing has changed since —
+ * the one wrong answer worth being careful about.
+ */
+function ccr_poc_update_10001(): string {
+  \Drupal::entityDefinitionUpdateManager()->installFieldStorageDefinition(
+    'rendered',
+    'ccr_deck_generation',
+    'ccr_poc',
+    BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Rendered lines'))
+      ->setDescription(t('The lines this slide carried when it was generated, as JSON.'))
+  );
+
+  return 'Added the rendered-lines snapshot to the deck log.';
+}

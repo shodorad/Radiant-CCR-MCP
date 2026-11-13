@@ -1,0 +1,35 @@
+{
+  "id": "section-cover",
+  "name": "Section cover",
+  "provenance": "Radiant Capabilities Overview.pptx, slide 3",
+  "record": "company_overview",
+  "pptx": "section-cover.pptx",
+  "parts": {
+    "slide": "ppt/slides/slide1.xml",
+    "rels": "ppt/slides/_rels/slide1.xml.rels",
+    "presentation": "ppt/presentation.xml"
+  },
+
+  "contract": {
+    "title": {
+      "kind": "text",
+      "source": "title",
+      "label": "Title",
+      "required": true,
+      "maxChars": 60,
+      "maxLines": 1,
+      "emphasis": false
+    }
+  },
+
+  "layout": {
+    "font": { "family": "Raleway", "widthSafety": 0.97 },
+    "bandToleranceIn": 0.12,
+    "slots": {
+      "title": {
+        "find": { "byName": "slot.title", "else": { "bandIn": 0.153, "tag": "p:sp" } },
+        "box": { "widthIn": 11.496, "sizePt": 27.91, "bold": false }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "_comment": "PLACEHOLDER case study for the CCR MCP POC. Fictional. Seeded by ccr/scripts/seed-placeholder-case-studies.php. Replace before testers see it.",
+  "id": "b1f6a0d2-3c4e-4a8b-9e21-5d7c8f0a1b02",
+  "type": "case_study",
+  "title": "PLACEHOLDER: Lindenfield Health Partners — claims intake automation",
+  "client_name": "Lindenfield Health Partners",
+  "source_material": "PLACEHOLDER — fictional, written for the CCR MCP proof of concept. Lindenfield Health Partners is not a real organisation and none of this happened. Replace with a real, approved case study before testers see it.\n\nDELIVERY LEAD'S SUMMARY (project close-out)\n\nLindenfield Health Partners is a regional health plan with about 340,000 members. Paper and fax claims were keyed by hand, and a backlog of several weeks was normal at quarter end.\n\nWe ran a five-month engagement:\n- Document AI to classify and extract fields from faxed and scanned claims, with a human review queue for low-confidence fields.\n- Integration with the existing claims adjudication platform through its published APIs.\n- Training for the intake team, who moved from keying to reviewing exceptions.\n\nMEASURED RESULTS (from Lindenfield's operations reporting, six months after go-live)\n- 64% of paper claims now flow through without manual keying. Source: intake platform audit log.\n- Average intake time fell from 11 days to 3 days.\n\nCLIENT INTERVIEW — Marcus Bell, Director of Claims Operations (notes)\n\"The backlog used to be a fact of life. Now it is an exception we can see coming.\"\n\nNOT FOR PUBLICATION\n- One vendor integration was replaced mid-project after a security review; do not mention externally.\n"
+}

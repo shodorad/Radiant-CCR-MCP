@@ -1,0 +1,56 @@
+uuid: cc197bd6-a334-4bdb-836b-98d10eafe529
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.company_overview.field_capability_pillars
+    - field.field.node.company_overview.field_framework_name
+    - field.field.node.company_overview.field_framework_statement
+    - field.field.node.company_overview.field_positioning_statement
+    - node.type.company_overview
+  module:
+    - entity_reference_revisions
+    - text
+    - user
+id: node.company_overview.default
+targetEntityType: node
+bundle: company_overview
+mode: default
+content:
+  field_capability_pillars:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_framework_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_framework_statement:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_positioning_statement:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

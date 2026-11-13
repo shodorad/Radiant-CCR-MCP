@@ -1,0 +1,56 @@
+{#
+  The two channels, on the record they read from.
+#}
+<div class="ccr-actions">
+  {% if stale_decks %}
+    <div class="ccr-alert ccr-alert--stale">
+      <strong>{{ stale_decks }}</strong> deck{{ stale_decks == 1 ? '' : 's' }} generated from this record
+      {{ stale_decks == 1 ? 'is' : 'are' }} out of date.
+      <a href="/admin/content/decks">Open My decks</a>
+    </div>
+  {% endif %}
+
+  {#
+    Two lists, because they are two different kinds of problem. A blocking issue
+    stops the deck being made at all — too many pillars for this template, a
+    required field left empty, a font the renderer cannot measure. The rest is
+    text that will not fit its box: worth fixing, but the deck still comes out.
+
+    Both are shown. Showing only the blocking one meant a marketer fixed the
+    pillar count, pressed Generate again, and only then met "49 characters,
+    limit is 36" — one problem per attempt, which is the slowest possible way
+    to find out what is wrong.
+  #}
+  {% set blocked = issues|filter(i => i.blocking) %}
+  {% set fit = issues|filter(i => not i.blocking) %}
+
+  {% if blocked %}
+    <div class="ccr-alert ccr-alert--blocked">
+      <strong>No deck can be made from this record{{ blocked|length > 1 ? ' yet' : '' }}:</strong>
+      <ul>
+        {% for issue in blocked %}
+          <li>{{ issue.message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if fit %}
+    <div class="ccr-alert ccr-alert--fit">
+      <strong>This will not fit the slide:</strong>
+      <ul>
+        {% for issue in fit %}
+          <li>{{ issue.label }} — {{ issue.message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <div class="ccr-actions__buttons">
+    {% for action in actions %}
+      <a href="{{ action.url }}" class="ccr-button{{ action.primary ? ' ccr-button--primary' : '' }}" title="{{ action.hint }}">
+        {{ action.title }}
+      </a>
+    {% endfor %}
+  </div>
+</div>

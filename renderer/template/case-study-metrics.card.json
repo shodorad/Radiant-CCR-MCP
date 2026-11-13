@@ -1,0 +1,149 @@
+{
+  "id": "case-study-metrics",
+  "name": "Case study — results",
+  "provenance": "Radiant Capabilities Overview.pptx, slide 19",
+  "pptx": "case-study-metrics.pptx",
+  "record": "case_study",
+  "written": true,
+  "brief": "One slide telling one client story to a prospective client: who the client is, what was wrong, what Radiant built, and what changed, in numbers. Plain, specific, confident; no superlatives the source does not earn.",
+  "placeholderArt": "The three phone screenshots are the source slide's own — Newfold Digital's Account Manager app, from slide 19 — not this client's product. They stand in until this template has an image slot. Replace them by hand before this slide goes to a client.",
+  "parts": {
+    "slide": "ppt/slides/slide1.xml",
+    "rels": "ppt/slides/_rels/slide1.xml.rels",
+    "presentation": "ppt/presentation.xml"
+  },
+
+  "contract": {
+    "title": {
+      "kind": "text",
+      "source": "headline",
+      "label": "Headline",
+      "brief": "Start with \"Case Study | \", then what was done and for whom, e.g. \"Case Study | Dispatch Modernization for Acme Freight\". Name the client exactly as the source does.",
+      "required": true,
+      "maxChars": 76,
+      "maxLines": 1,
+      "emphasis": false
+    },
+    "solutionName": {
+      "kind": "text",
+      "source": "solution_name",
+      "label": "Solution name",
+      "brief": "The name of what Radiant delivered, as a short title in the source's own terms — a product or programme name if the source gives one, otherwise a plain description.",
+      "required": true,
+      "maxChars": 48,
+      "maxLines": 1,
+      "emphasis": false
+    },
+    "client": {
+      "kind": "text",
+      "source": "client_summary",
+      "label": "Our Client",
+      "brief": "One sentence: who the client is, what they do and at what scale. Facts from the source only.",
+      "required": true,
+      "maxChars": 150,
+      "maxLines": 3,
+      "emphasis": false
+    },
+    "problem": {
+      "kind": "text",
+      "source": "problem",
+      "label": "The Problem",
+      "brief": "Two short paragraphs. First: the situation and why it hurt the client. Second: what Radiant did about it and what that made possible. Each paragraph is shown as a bullet.",
+      "required": true,
+      "maxChars": 760,
+      "maxLines": 13,
+      "paragraphs": 2,
+      "emphasis": false
+    },
+    "solutions": {
+      "kind": "repeat",
+      "source": "solutions",
+      "label": "Solutions provided",
+      "labelPattern": "Solution {n} {slot}",
+      "brief": "The distinct things Radiant built or introduced, one per row, most important first.",
+      "min": 3,
+      "max": 7,
+      "slots": {
+        "name": {
+          "kind": "text",
+          "source": "name",
+          "label": "name",
+          "brief": "A two-to-five word name for one thing delivered, e.g. \"Route optimisation service\".",
+          "required": true,
+          "maxChars": 40,
+          "maxLines": 1,
+          "emphasis": false
+        }
+      }
+    },
+    "metrics": {
+      "kind": "repeat",
+      "source": "metrics",
+      "orderBy": "weight",
+      "label": "Results",
+      "labelPattern": "Result {n} {slot}",
+      "brief": "The measured outcomes, strongest first. Only results the source states as numbers.",
+      "min": 2,
+      "max": 4,
+      "refusal": "The row of result boxes sits under the screenshots and holds four at most.",
+      "slots": {
+        "text": {
+          "kind": "text",
+          "source": "text",
+          "label": "result",
+          "brief": "The figure in <strong>, then what it measured, e.g. \"<strong>30% reduction</strong> in operational cost\". Use the source's number exactly, with its qualifier (\"up to\", \"anticipated\") if it has one.",
+          "required": true,
+          "maxChars": 50,
+          "maxLines": 3,
+          "emphasis": true
+        }
+      }
+    }
+  },
+
+  "layout": {
+    "font": { "family": "Raleway", "widthSafety": 0.97 },
+    "bandToleranceIn": 0.12,
+    "slots": {
+      "title": {
+        "find": { "byName": "slot.title", "else": { "bandIn": 0.188, "tag": "p:sp" } },
+        "box": { "widthIn": 11.785, "sizePt": 22, "bold": true }
+      },
+      "solutionName": {
+        "find": { "byName": "slot.solutionName", "else": { "bandIn": 0.848, "tag": "p:sp" } },
+        "box": { "widthIn": 6.3, "sizePt": 20, "bold": false }
+      },
+      "client": {
+        "find": { "byName": "slot.client", "else": { "bandIn": 1.015, "tag": "p:sp" } },
+        "keepParagraphs": 1,
+        "box": { "widthIn": 4.247, "sizePt": 10, "bold": false }
+      },
+      "problem": {
+        "find": { "byName": "slot.problem", "else": { "bandIn": 2.018, "tag": "p:sp" } },
+        "keepParagraphs": 1,
+        "box": { "widthIn": 4.285, "sizePt": 10, "bold": false }
+      },
+      "solutions": {
+        "table": {
+          "find": { "byName": "slot.solutions", "else": { "bandIn": 5.058, "tag": "p:graphicFrame" } },
+          "col": 0
+        },
+        "slots": {
+          "name": {
+            "box": { "widthIn": 3.378, "sizePt": 8, "bold": true }
+          }
+        }
+      },
+      "metrics": {
+        "row": { "axis": "x", "pitchIn": 1.968, "centreIn": 9.27, "recentre": true },
+        "slots": {
+          "text": {
+            "find": { "byName": "slot.metrics.{n}.text", "else": { "bandIn": 5.995, "tag": "p:sp" } },
+            "styleFrom": 1,
+            "box": { "widthIn": 1.314, "sizePt": 10, "bold": true }
+          }
+        }
+      }
+    }
+  }
+}

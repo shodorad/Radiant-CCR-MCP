@@ -1,0 +1,11 @@
+uuid: 82cea7f7-910e-47c8-aee0-3dc0b13c3169
+langcode: en
+status: true
+dependencies: {  }
+name: 'Company overview'
+type: company_overview
+description: 'The single source of truth for what Radiant does. Drives the website and the capability deck.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

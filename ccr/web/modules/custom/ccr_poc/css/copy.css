@@ -1,0 +1,25 @@
+/* Writing a channel's copy from source material — CopyReviewForm. */
+.ccr-copy__status {
+  margin: 0 0 1rem;
+  padding: 0.7rem 1rem;
+  background: #f3f6f8;
+  border-left: 4px solid #074661;
+}
+.ccr-copy__assist { margin: 0 0 1.5rem; }
+.ccr-copy__hint { margin: 0.4rem 0 0; color: #53656f; max-width: 70ch; }
+.ccr-copy fieldset { margin: 1.2rem 0; }
+.ccr-copy__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0 1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #e3e9ec;
+}
+.ccr-copy__verdict { margin-top: 0.35rem; }
+.ccr-copy__verdict span { display: block; font-size: 0.85rem; line-height: 1.4; }
+.ccr-copy__problem { color: #a4262c; font-weight: 600; }
+.ccr-copy__problem::before { content: "✕ "; }
+.ccr-copy__warning { color: #8a5a00; }
+.ccr-copy__warning::before { content: "! "; }
+.ccr-copy__ok { color: #2e6b2f; }
+.ccr-copy__ok::before { content: "✓ "; }

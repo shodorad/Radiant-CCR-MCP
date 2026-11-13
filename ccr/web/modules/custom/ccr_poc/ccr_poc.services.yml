@@ -1,0 +1,10 @@
+services:
+  ccr_poc.renderer:
+    class: Drupal\ccr_poc\RendererClient
+    arguments: ['@http_client', '@config.factory']
+  ccr_poc.site_publisher:
+    class: Drupal\ccr_poc\SitePublisher
+    arguments: ['@http_client', '@config.factory', '@logger.factory']
+  ccr_poc.copy_store:
+    class: Drupal\ccr_poc\CopyStore
+    arguments: ['@keyvalue']

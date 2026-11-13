@@ -1,0 +1,130 @@
+{
+  "id": "company-overview",
+  "name": "What We Do — Overall Approach",
+  "provenance": "Radiant Capabilities Overview.pptx, slide 4",
+  "record": "company_overview",
+  "pptx": "company-overview.pptx",
+  "icons": "icons/index.json",
+  "parts": {
+    "slide": "ppt/slides/slide1.xml",
+    "rels": "ppt/slides/_rels/slide1.xml.rels",
+    "presentation": "ppt/presentation.xml"
+  },
+
+  "contract": {
+    "title": {
+      "kind": "text",
+      "source": "title",
+      "label": "Title",
+      "required": true,
+      "maxChars": 60,
+      "maxLines": 1,
+      "emphasis": false
+    },
+    "positioning": {
+      "kind": "text",
+      "source": "positioning_statement",
+      "label": "Positioning statement",
+      "required": true,
+      "maxChars": 180,
+      "maxLines": 2,
+      "emphasis": true
+    },
+    "frameworkName": {
+      "kind": "text",
+      "source": "framework_name",
+      "label": "Framework name",
+      "required": true,
+      "maxChars": 30,
+      "maxLines": 1,
+      "emphasis": false
+    },
+    "frameworkStatement": {
+      "kind": "text",
+      "source": "framework_statement",
+      "label": "Framework statement",
+      "required": true,
+      "maxChars": 120,
+      "maxLines": 1,
+      "emphasis": true
+    },
+    "items": {
+      "kind": "repeat",
+      "source": "capability_pillars",
+      "orderBy": "weight",
+      "label": "Capability pillars",
+      "labelPattern": "Pillar {n} {slot}",
+      "min": 3,
+      "max": 5,
+      "refusal": "The row of icons and connecting arrows is fixed brand artwork and does not extend — see docs/content-model.md.",
+      "slots": {
+        "icon": {
+          "kind": "icon",
+          "source": "icon_token",
+          "label": "icon"
+        },
+        "name": {
+          "kind": "text",
+          "source": "name",
+          "label": "name",
+          "required": true,
+          "maxChars": 36,
+          "maxLines": 2,
+          "emphasis": false
+        },
+        "description": {
+          "kind": "text",
+          "source": "description",
+          "label": "description",
+          "required": true,
+          "maxChars": 80,
+          "maxLines": 4,
+          "emphasis": true
+        }
+      }
+    }
+  },
+
+  "layout": {
+    "font": { "family": "Raleway", "widthSafety": 0.97 },
+    "bandToleranceIn": 0.12,
+    "slots": {
+      "title": {
+        "find": { "byName": "slot.title", "else": { "placeholder": true, "tag": "p:sp" } },
+        "box": { "widthIn": 12.0, "sizePt": 27.91, "bold": true }
+      },
+      "positioning": {
+        "find": { "byName": "slot.positioning", "else": { "bandIn": 1.16, "tag": "p:sp" } },
+        "box": { "widthIn": 11.23, "sizePt": 17.85, "bold": false }
+      },
+      "frameworkName": {
+        "find": { "byName": "slot.frameworkName", "else": { "bandIn": 2.398, "tag": "p:sp" } },
+        "box": { "widthIn": 3.6, "sizePt": 13.88, "bold": false },
+        "centreOnSlide": { "padIn": 0.2 }
+      },
+      "frameworkStatement": {
+        "find": { "byName": "slot.frameworkStatement", "else": { "bandIn": 2.944, "tag": "p:sp" } },
+        "box": { "widthIn": 11.23, "sizePt": 13.88, "bold": false }
+      },
+      "items": {
+        "row": { "axis": "x", "pitchIn": 2.5665, "centreIn": 6.6825, "recentre": true },
+        "slots": {
+          "icon": {
+            "find": { "byName": "slot.items.{n}.icon", "else": { "bandIn": 3.67, "tag": "p:pic" } }
+          },
+          "name": {
+            "find": { "byName": "slot.items.{n}.name", "else": { "bandIn": 5.032, "tag": "p:sp" } },
+            "box": { "widthIn": 2.037, "sizePt": 12.89, "bold": true }
+          },
+          "description": {
+            "find": { "byName": "slot.items.{n}.description", "else": { "bandIn": 5.538, "tag": "p:sp" } },
+            "box": { "widthIn": 2.144, "sizePt": 11.9, "bold": false }
+          }
+        },
+        "connectors": {
+          "find": { "byName": "slot.items.connector.{n}", "else": { "bandIn": 4.099, "tag": "p:cxnSp" } }
+        }
+      }
+    }
+  }
+}

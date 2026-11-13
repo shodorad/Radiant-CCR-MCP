@@ -1,0 +1,40 @@
+uuid: fa43b51d-004e-451a-b0b0-4a8ddb7d7548
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.capability_pillar.field_icon_token
+    - field.field.paragraph.capability_pillar.field_pillar_description
+    - field.field.paragraph.capability_pillar.field_pillar_name
+    - paragraphs.paragraphs_type.capability_pillar
+  module:
+    - options
+    - text
+id: paragraph.capability_pillar.default
+targetEntityType: paragraph
+bundle: capability_pillar
+mode: default
+content:
+  field_icon_token:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_pillar_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_pillar_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

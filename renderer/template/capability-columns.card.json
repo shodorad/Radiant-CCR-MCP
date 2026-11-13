@@ -1,0 +1,87 @@
+{
+  "id": "capability-columns",
+  "name": "Capabilities — four columns",
+  "provenance": "Radiant Capabilities Overview.pptx, slide 29",
+  "record": "company_overview",
+  "pptx": "capability-columns.pptx",
+  "icons": "icons/index.json",
+  "parts": {
+    "slide": "ppt/slides/slide1.xml",
+    "rels": "ppt/slides/_rels/slide1.xml.rels",
+    "presentation": "ppt/presentation.xml"
+  },
+
+  "contract": {
+    "title": {
+      "kind": "text",
+      "source": "title",
+      "label": "Title",
+      "required": true,
+      "maxChars": 70,
+      "maxLines": 1,
+      "emphasis": false
+    },
+    "items": {
+      "kind": "repeat",
+      "source": "capability_pillars",
+      "orderBy": "weight",
+      "label": "Capability pillars",
+      "labelPattern": "Column {n} {slot}",
+      "min": 3,
+      "max": 4,
+      "refusal": "The four columns are fixed brand artwork and the row does not extend.",
+      "slots": {
+        "icon": {
+          "kind": "icon",
+          "source": "icon_token",
+          "label": "icon"
+        },
+        "name": {
+          "kind": "text",
+          "source": "name",
+          "label": "name",
+          "required": true,
+          "maxChars": 32,
+          "maxLines": 2,
+          "emphasis": false
+        },
+        "description": {
+          "kind": "text",
+          "source": "description",
+          "label": "description",
+          "required": true,
+          "maxChars": 550,
+          "maxLines": 17,
+          "emphasis": true
+        }
+      }
+    }
+  },
+
+  "layout": {
+    "font": { "family": "Raleway", "weight": "Medium", "widthSafety": 0.97 },
+    "bandToleranceIn": 0.12,
+    "slots": {
+      "title": {
+        "find": { "byName": "slot.title", "else": { "bandIn": 0.132, "tag": "p:sp" } },
+        "box": { "widthIn": 11.985, "sizePt": 24, "bold": false }
+      },
+      "items": {
+        "row": { "axis": "x", "recentre": false },
+        "slots": {
+          "icon": {
+            "find": { "byName": "slot.items.{n}.icon", "else": { "bandIn": 1.257, "tag": "p:pic" } }
+          },
+          "name": {
+            "find": { "byName": "slot.items.{n}.name", "else": { "bandIn": 2.09, "tag": "p:sp" } },
+            "box": { "widthIn": 2.797, "sizePt": 20, "bold": true }
+          },
+          "description": {
+            "find": { "byName": "slot.items.{n}.description", "else": { "bandIn": 2.974, "tag": "p:sp" } },
+            "box": { "widthIn": 3.005, "sizePt": 12, "bold": false }
+          }
+        }
+      }
+    }
+  }
+}

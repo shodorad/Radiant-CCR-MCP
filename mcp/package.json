@@ -1,0 +1,29 @@
+{
+  "name": "ccr-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server for Radiant's Central Content Repository: lists what the CCR holds and returns it (phase 1).",
+  "type": "module",
+  "main": "dist/http.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/http.js",
+    "dev": "tsx watch src/http.ts",
+    "stdio": "tsx src/stdio.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
+  }
+}

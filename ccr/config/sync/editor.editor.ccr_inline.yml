@@ -1,0 +1,20 @@
+uuid: 6d7c2257-8941-44df-8dbb-c973d045f01f
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.ccr_inline
+  module:
+    - ckeditor5
+format: ccr_inline
+editor: ckeditor5
+settings:
+  toolbar:
+    items:
+      - bold
+      - '|'
+      - undo
+      - redo
+  plugins: {  }
+image_upload:
+  status: false

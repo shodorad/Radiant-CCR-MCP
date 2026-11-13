@@ -1,0 +1,8 @@
+{
+  "_comment": "PLACEHOLDER case study for the CCR MCP POC. Fictional. Seeded by ccr/scripts/seed-placeholder-case-studies.php. Replace before testers see it.",
+  "id": "b1f6a0d2-3c4e-4a8b-9e21-5d7c8f0a1b03",
+  "type": "case_study",
+  "title": "PLACEHOLDER: Carrow County — resident services portal",
+  "client_name": "Carrow County",
+  "source_material": "PLACEHOLDER — fictional, written for the CCR MCP proof of concept. Carrow County is not a real organisation and none of this happened. Replace with a real, approved case study before testers see it.\n\nDELIVERY LEAD'S SUMMARY (project close-out)\n\nCarrow County serves about 410,000 residents. Permits, licences and service requests lived in eleven separate systems, each with its own form and its own phone line.\n\nWe ran a nine-month engagement:\n- Service design research with residents and front-desk staff across four departments.\n- A single resident portal and account, built on the county's existing cloud tenancy, with an AI assistant that answers questions from approved county content only.\n- Migration of the six highest-volume services onto the portal.\n\nMEASURED RESULTS (from the county's digital services dashboard, first year)\n- 58% of requests for the six migrated services now start online, up from 22%.\n- Call volume to the permits line fell 35%.\n\nCLIENT INTERVIEW — Elena Ortiz, Chief Digital Officer (notes)\n\"Residents stopped needing to know how the county is organised to get something done.\"\n\nNOT FOR PUBLICATION\n- Budget figures are pending board approval and must not be quoted.\n"
+}

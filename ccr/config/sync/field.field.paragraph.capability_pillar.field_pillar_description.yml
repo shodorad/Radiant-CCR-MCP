@@ -1,0 +1,24 @@
+uuid: 659ebe6e-3646-47bb-97ae-1f2e1da3bccb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pillar_description
+    - filter.format.ccr_inline
+    - paragraphs.paragraphs_type.capability_pillar
+  module:
+    - text
+id: paragraph.capability_pillar.field_pillar_description
+field_name: field_pillar_description
+entity_type: paragraph
+bundle: capability_pillar
+label: Description
+description: 'One sentence, up to 90 characters. Use <strong>bold</strong> on the one word that matters — the deck renders it in Radiant green.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - ccr_inline
+field_type: text_long

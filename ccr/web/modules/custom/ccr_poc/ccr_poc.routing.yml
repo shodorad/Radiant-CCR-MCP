@@ -1,0 +1,142 @@
+# The deck builder: choose templates, choose which pillars each slide shows,
+# generate. This is the same URL the "Generate deck" button has always pointed
+# at — before unwelding phase 3 it produced a file immediately, and now it asks
+# the one question the repository cannot answer for you: the record holds six
+# pillars and no template holds six, so which five?
+ccr_poc.generate_deck:
+  path: '/node/{node}/deck'
+  defaults:
+    _form: '\Drupal\ccr_poc\Form\DeckBuilderForm'
+    _title: 'Build a deck'
+  requirements:
+    _permission: 'generate ccr decks'
+    node: \d+
+  options:
+    parameters:
+      node:
+        type: entity:node
+
+# Rebuild a saved deck without opening the builder — what "Regenerate" on the
+# dashboard uses, and what makes the staleness flag actionable rather than
+# merely informative.
+ccr_poc.regenerate_deck:
+  path: '/ccr/deck/{deck_id}/regenerate'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\DeckController::regenerate'
+    _title: 'Regenerate deck'
+  requirements:
+    _permission: 'generate ccr decks'
+
+ccr_poc.publish_to_site:
+  path: '/node/{node}/publish-to-site'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\PublishController::publish'
+    _title: 'Publish to site'
+  requirements:
+    _permission: 'publish ccr content'
+    _csrf_token: 'TRUE'
+    node: \d+
+  options:
+    parameters:
+      node:
+        type: entity:node
+
+ccr_poc.dashboard:
+  path: '/admin/content/decks'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\DashboardController::page'
+    _title: 'My decks'
+  requirements:
+    _permission: 'generate ccr decks'
+
+ccr_poc.dashboard_feed:
+  path: '/admin/content/decks/feed'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\DashboardController::feed'
+  requirements:
+    _permission: 'generate ccr decks'
+
+# "Shorten to fit" on the edit form. Behind the permission to edit the content
+# it rewrites, and a CSRF header, because it spends somebody's API credit — the
+# one route here that costs money to call.
+ccr_poc.suggest:
+  path: '/ccr/suggest'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\AssistController::suggest'
+  methods: [POST]
+  requirements:
+    _permission: 'create company_overview content+edit any company_overview content+edit own company_overview content'
+    _csrf_request_header_token: 'TRUE'
+
+ccr_poc.record:
+  path: '/ccr/record'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\RecordController::read'
+  methods: [GET]
+  requirements:
+    # The channel-neutral record, published by the repository that owns it.
+    # No auth, like the generation log below — stated POC shortcut (plan.md §4).
+    _access: 'TRUE'
+
+# Everything the repository publishes, one line each — what the MCP's
+# list_content reads. Same no-auth shortcut as /ccr/record; kept off the public
+# host by the reverse proxy (deploy/Caddyfile).
+ccr_poc.records:
+  path: '/ccr/records'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\RecordController::list'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+ccr_poc.generation_log:
+  path: '/ccr/generation-log'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\GenerationLogController::record'
+  methods: [POST]
+  requirements:
+    # No auth: the renderer is trusted on the local network. Stated POC
+    # shortcut — production would authenticate service to service (plan.md §4).
+    _access: 'TRUE'
+
+# ---- the channel-facing API ------------------------------------------------
+# A front end that is not Drupal reads its decks here and asks for a rebuild.
+# The dashboard above answers the same question, but as a themed page behind a
+# permission, which nothing outside the CMS can read. Same shortcut on auth as
+# /ccr/record: the local network is trusted (plan.md §4).
+
+ccr_poc.channel_decks:
+  path: '/ccr/decks'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\ChannelController::decks'
+  methods: [GET]
+  requirements:
+    _access: 'TRUE'
+
+ccr_poc.channel_build:
+  path: '/ccr/deck/build'
+  defaults:
+    _controller: '\Drupal\ccr_poc\Controller\ChannelController::build'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+
+# Write one channel's copy from a record's source material, check it, approve
+# it (plan.md §8 A2). {channel} is a written template id or "website"; the page
+# asks that channel what it needs, so no channel is named here.
+ccr_poc.write:
+  path: '/node/{node}/write/{channel}'
+  defaults:
+    _form: '\Drupal\ccr_poc\Form\CopyReviewForm'
+    _title: 'Write for a channel'
+  requirements:
+    _permission: 'generate ccr decks+publish ccr content'
+    node: \d+
+    channel: '[a-z0-9-]+'
+  options:
+    # An editing page, so the admin theme, like the node edit form beside it —
+    # which is also where the bold-only editor is known to load.
+    _admin_route: TRUE
+    parameters:
+      node:
+        type: entity:node

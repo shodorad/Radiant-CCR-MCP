@@ -1,0 +1,100 @@
+uuid: 41dfa44a-2d97-475f-9c1f-7577508ab19d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.company_overview.field_capability_pillars
+    - field.field.node.company_overview.field_framework_name
+    - field.field.node.company_overview.field_framework_statement
+    - field.field.node.company_overview.field_positioning_statement
+    - node.type.company_overview
+  module:
+    - maxlength
+    - paragraphs
+    - text
+id: node.company_overview.default
+targetEntityType: node
+bundle: company_overview
+mode: default
+content:
+  field_capability_pillars:
+    type: paragraphs
+    weight: 4
+    region: content
+    settings:
+      title: 'Capability pillar'
+      title_plural: 'Capability pillars'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: capability_pillar
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
+    third_party_settings: {  }
+  field_framework_name:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 30
+        maxlength_js_label: 'The <em>@limit</em>-character deck template fits about this much. <strong>@remaining</strong> left — you can go over.'
+        maxlength_js_enforce: false
+  field_framework_statement:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 120
+        maxlength_js_label: 'The <em>@limit</em>-character deck template fits about this much. <strong>@remaining</strong> left — you can go over.'
+        maxlength_js_enforce: false
+  field_positioning_statement:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 200
+        maxlength_js_label: 'The <em>@limit</em>-character deck template fits about this much. <strong>@remaining</strong> left — you can go over.'
+        maxlength_js_enforce: false
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 60
+        maxlength_js_label: 'The <em>@limit</em>-character deck template fits about this much. <strong>@remaining</strong> left — you can go over.'
+        maxlength_js_enforce: false
+hidden:
+  comment: true
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true
+  url_redirects: true

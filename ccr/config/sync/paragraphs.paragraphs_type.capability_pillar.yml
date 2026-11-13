@@ -1,0 +1,10 @@
+uuid: 0dd10fb5-7e81-4937-8257-a5235fad333c
+langcode: en
+status: true
+dependencies: {  }
+id: capability_pillar
+label: 'Capability pillar'
+icon_uuid: null
+icon_default: null
+description: 'One column of the pillar row: a name, a one-line description and a brand icon.'
+behavior_plugins: {  }

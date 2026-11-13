@@ -1,0 +1,17 @@
+uuid: 33adce32-483e-4150-85ec-2b0b24ce7105
+langcode: en
+status: true
+dependencies: {  }
+name: 'CCR inline emphasis'
+format: ccr_inline
+weight: -10
+filters:
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: true
+    weight: -10
+    settings:
+      allowed_html: '<strong>'
+      filter_html_help: false
+      filter_html_nofollow: false

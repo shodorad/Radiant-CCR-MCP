@@ -1,0 +1,73 @@
+# The hosted POC: one VM, five containers. See deploy/README.md.
+#   cd deploy && cp .env.example .env && (edit) && docker compose up -d --build
+name: radiant-ccr
+
+services:
+  caddy:
+    image: caddy:2.10-alpine
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      CCR_HOST: ${CCR_HOST}
+      MCP_HOST: ${MCP_HOST}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [drupal, mcp]
+    restart: unless-stopped
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes: [db_data:/var/lib/mysql]
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      retries: 10
+    restart: unless-stopped
+
+  drupal:
+    build: { context: .., dockerfile: deploy/drupal.Dockerfile }
+    environment:
+      CCR_ENV: prod
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DRUPAL_HASH_SALT: ${DRUPAL_HASH_SALT}
+      # The public name, plus "drupal" — the name the MCP and renderer use inside the network.
+      DRUPAL_TRUSTED_HOSTS: ${CCR_HOST},drupal
+      RENDERER_URL: http://renderer:5001
+    volumes:
+      - drupal_files:/opt/drupal/web/sites/default/files
+      # The seed scripts read fixtures from here, as they do under DDEV.
+      - ../fixtures:/mnt/repo/fixtures:ro
+    depends_on:
+      db: { condition: service_healthy }
+    restart: unless-stopped
+
+  renderer:
+    build: { context: .., dockerfile: deploy/node.Dockerfile, args: { APP: renderer } }
+    environment:
+      PORT: "5001"
+      CCR_BASE_URL: http://drupal
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    restart: unless-stopped
+
+  mcp:
+    build: { context: .., dockerfile: deploy/node.Dockerfile, args: { APP: mcp } }
+    environment:
+      PORT: "3000"
+      CCR_INTERNAL_URL: http://drupal
+      MCP_KEYS: ${MCP_KEYS}
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
+  db_data:
+  drupal_files:

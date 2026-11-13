@@ -1,0 +1,6 @@
+# host.docker.internal reaches the laptop from inside the DDEV web container,
+# which is where the renderer runs. Both instances are local to the demo.
+renderer_url: 'http://host.docker.internal:5001'
+site_url: 'http://ccr-site.ddev.site'
+site_user: 'admin'
+site_pass: 'admin'

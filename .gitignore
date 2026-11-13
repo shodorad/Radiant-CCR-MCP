@@ -1,0 +1,42 @@
+# Principle (carried from Rad-Content-Model): the repo holds what is needed to
+# deploy and run the CCR + MCP. Build output and secrets stay out.
+
+# --- Drupal build output, reproducible from composer.lock + scripts/ + config/sync/
+ccr/vendor/
+ccr/web/core/
+ccr/web/modules/contrib/
+ccr/web/themes/contrib/
+ccr/web/profiles/contrib/
+ccr/web/libraries/
+ccr/web/sites/default/files/
+ccr/web/sites/default/settings.ddev.php
+ccr/web/sites/default/settings.local.php
+
+# --- Node
+node_modules/
+renderer/out/
+mcp/dist/
+dist/
+
+# --- Local environment and secrets (.env.example is committed)
+.env
+.env.local
+.env.*.local
+!.env.example
+deploy/.env
+deploy/backups/
+.ddev/traefik/certs/
+*/.ddev/traefik/certs/
+*.pem
+*.key
+
+# --- Runtime and editor debris
+.renderer.pid
+.renderer.log
+.DS_Store
+Thumbs.db
+*~
+~$*
+
+# --- Kept deliberately: the carved Radiant templates the renderer fills
+!renderer/template/*.pptx

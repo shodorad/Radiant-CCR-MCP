@@ -1,0 +1,28 @@
+{
+  "_comment": "A deck definition: an ordered list of (template, selection) against the fixture record. The same shape the CCR POSTs to the renderer's /deck. Kept here so a multi-slide deck can be built with no Drupal running.",
+  "entries": [
+    {
+      "template": "company-overview",
+      "selection": {
+        "items": [
+          "digital-strategy",
+          "product-development",
+          "cloud-transformation",
+          "analytics-data-science",
+          "organizational-transformation"
+        ]
+      }
+    },
+    {
+      "template": "capability-columns",
+      "selection": {
+        "items": [
+          "digital-strategy",
+          "cloud-transformation",
+          "organizational-transformation",
+          "skilled-workforce"
+        ]
+      }
+    }
+  ]
+}

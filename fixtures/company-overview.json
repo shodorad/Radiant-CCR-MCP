@@ -1,0 +1,54 @@
+{
+  "_comment": "Hand-written stand-in for the CCR record (plan.md phase 0). Content is slide 4 of 'Radiant Capabilities Overview.pptx' verbatim, except where noted in docs/content-model.md. Emphasis is carried as <strong>; the renderer decides how each field's emphasis is treated. This file stays in the repo after the CCR exists so the renderer remains testable with no Drupal running. Six pillars, because the business has six — the website lists all of them and no shipped slide template holds more than five, which is what channel-side selection is for (renderer/lib/select.js). `key` is how a deck names an item; in the CCR it is the paragraph's uuid, here a readable slug.",
+  "id": "fixture-company-overview",
+  "type": "company_overview",
+  "changed": "2026-08-20T00:00:00Z",
+  "title": "What We Do : Overall Approach",
+  "positioning_statement": "Radiant helps organizations <strong>accelerate</strong> digital transformation through <strong>Applied AI</strong> to deliver practical, real-world solutions that <strong>create measurable business value</strong>.",
+  "framework_name": "Radiant’s AI Fabric",
+  "framework_statement": "We infuse intelligence into every enabler to deliver results faster, better, and more efficiently.",
+  "capability_pillars": [
+    {
+      "key": "digital-strategy",
+      "weight": 1,
+      "name": "Digital Strategy and Experience",
+      "description": "Design and optimize experiences faster with AI-driven <strong>insight</strong> and automation.",
+      "icon_token": "target"
+    },
+    {
+      "key": "product-development",
+      "weight": 2,
+      "name": "Product Development and Integration",
+      "description": "Accelerate delivery and reduce cost through AI-enabled <strong>development</strong>.",
+      "icon_token": "product"
+    },
+    {
+      "key": "cloud-transformation",
+      "weight": 3,
+      "name": "Cloud Transformation",
+      "description": "Enhance scalability and performance with AI-optimized <strong>infrastructure</strong>.",
+      "icon_token": "cloud"
+    },
+    {
+      "key": "analytics-data-science",
+      "weight": 4,
+      "name": "Analytics, Data Science",
+      "description": "Turn data into real-time intelligence for faster <strong>decisions</strong>.",
+      "icon_token": "brain"
+    },
+    {
+      "key": "organizational-transformation",
+      "weight": 5,
+      "name": "Organizational Transformation",
+      "description": "Empower people and processes with AI <strong>enablement</strong>.",
+      "icon_token": "climb"
+    },
+    {
+      "key": "skilled-workforce",
+      "weight": 6,
+      "name": "Skilled Workforce Solutions",
+      "description": "Build and scale teams fast with AI-matched <strong>talent</strong>.",
+      "icon_token": "climb"
+    }
+  ]
+}

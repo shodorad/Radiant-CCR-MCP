@@ -1,0 +1,27 @@
+{
+  "target": {
+    "file": "target.svg",
+    "media": "image17.svg",
+    "label": "Bullseye outline"
+  },
+  "product": {
+    "file": "product.svg",
+    "media": "image15.svg",
+    "label": "Ui Ux outline"
+  },
+  "cloud": {
+    "file": "cloud.svg",
+    "media": "image18.svg",
+    "label": "Internet Of Things outline"
+  },
+  "brain": {
+    "file": "brain.svg",
+    "media": "image19.svg",
+    "label": "Artificial Intelligence outline"
+  },
+  "climb": {
+    "file": "climb.svg",
+    "media": "image16.svg",
+    "label": "Aspiration outline"
+  }
+}

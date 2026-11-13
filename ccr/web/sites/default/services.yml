@@ -1,0 +1,24 @@
+# Cross-origin reads for the channels that are not Drupal.
+#
+# The renderer already answers every route with `Access-Control-Allow-Origin:
+# *`; this is the same permission on the repository's side, so a front end
+# served from another origin can read /ccr/record and /ccr/decks and ask
+# /ccr/deck/build for a file.
+#
+# `*` and no credentials: there is no session to protect here, because none of
+# these endpoints has auth in the first place. That is the stated POC shortcut
+# (plan.md §4) and this file does not widen it — it makes the existing shortcut
+# usable from a browser instead of only from curl. The day these endpoints get
+# authentication is the day this list gets real origins.
+parameters:
+  cors.config:
+    enabled: true
+    allowedHeaders: ['content-type', 'accept']
+    allowedMethods: ['GET', 'POST', 'OPTIONS']
+    allowedOrigins: ['*']
+    # Named explicitly: a browser can read no response header beyond the safe
+    # handful unless the server says so, and the deck id is how a channel knows
+    # what it just took a copy of.
+    exposedHeaders: ['X-CCR-Deck-Id', 'X-CCR-Slides', 'X-CCR-Fit-Issues', 'Content-Disposition']
+    maxAge: 600
+    supportsCredentials: false

@@ -1,0 +1,24 @@
+uuid: 5edff940-41c3-4309-8f1a-5a1f5d8a91f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_framework_statement
+    - filter.format.ccr_inline
+    - node.type.company_overview
+  module:
+    - text
+id: node.company_overview.field_framework_statement
+field_name: field_framework_statement
+entity_type: node
+bundle: company_overview
+label: 'Framework statement'
+description: 'One line explaining the framework, up to 120 characters.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - ccr_inline
+field_type: text_long

@@ -1,0 +1,36 @@
+uuid: 40b9b35c-b60a-472c-bef1-4144326f5c61
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_icon_token
+field_name: field_icon_token
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: target
+      label: 'Target — strategy, focus, outcomes'
+    -
+      value: product
+      label: 'Product — interfaces, delivery, build'
+    -
+      value: cloud
+      label: 'Cloud — infrastructure, platform, scale'
+    -
+      value: brain
+      label: 'Intelligence — data, analytics, AI'
+    -
+      value: climb
+      label: 'Climb — people, change, enablement'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

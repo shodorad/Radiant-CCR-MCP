@@ -1,0 +1,6 @@
+_core:
+  default_config_hash: HWKFvjg6seJHzoXMVyKESAbIz4DoGVfCTcyWOJtN-8o
+renderer_url: 'http://host.docker.internal:5001'
+site_url: 'http://ccr-site.ddev.site'
+site_user: admin
+site_pass: admin

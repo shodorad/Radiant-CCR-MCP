@@ -1,0 +1,19 @@
+uuid: 8cbbe67c-4d03-43ea-8864-b3797396d13e
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_framework_statement
+field_name: field_framework_statement
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,31 @@
+/**
+ * "Shorten to fit". Quiet on purpose: it sits under a counter that is already
+ * telling the marketer something, and it is an offer, not an alert.
+ */
+.ccr-assist {
+  margin-top: 0.5rem;
+  max-width: 44rem;
+}
+
+/* Claro gives .button a display of its own, which outranks the hidden attribute. */
+.ccr-assist [hidden] {
+  display: none !important;
+}
+
+.ccr-assist__status {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 0.8125rem;
+  color: #55565b;
+}
+
+.ccr-assist__offer {
+  margin: 0 0 0.5rem;
+  padding: 0.625rem 0.75rem;
+  border-left: 3px solid #003ecc;
+  background: #f3f4f9;
+  line-height: 1.5;
+}
+
+.ccr-assist__actions .button {
+  margin: 0 0.5rem 0 0;
+}

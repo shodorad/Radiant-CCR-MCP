@@ -1,0 +1,31 @@
+uuid: 9d2755b4-9e4c-4fdb-85e3-525abca2971c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_capability_pillars
+    - node.type.company_overview
+    - paragraphs.paragraphs_type.capability_pillar
+  module:
+    - entity_reference_revisions
+id: node.company_overview.field_capability_pillars
+field_name: field_capability_pillars
+entity_type: node
+bundle: company_overview
+label: 'Capability pillars'
+description: 'Three to five. The deck lays them out as a row of icons; drag to reorder.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      capability_pillar: capability_pillar
+    negate: 0
+    target_bundles_drag_drop:
+      capability_pillar:
+        weight: 1
+        enabled: true
+field_type: entity_reference_revisions

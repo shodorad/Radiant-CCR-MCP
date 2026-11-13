@@ -1,0 +1,34 @@
+dashboard:
+  version: 1.x
+  js:
+    js/dashboard.js: {}
+  css:
+    theme:
+      css/dashboard.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+
+# "Shorten to fit" on the edit form. Attached only when the deck channel reports
+# an assistant — see ccr_poc_offer_writing_assistant().
+assist:
+  version: 1.x
+  js:
+    js/assist.js: {}
+  css:
+    theme:
+      css/assist.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/drupalSettings
+
+# The page that writes a channel's copy from source material and approves it.
+copy:
+  version: 1.x
+  css:
+    theme:
+      css/copy.css: {}
+  dependencies:
+    - ccr_poc/dashboard

@@ -1,0 +1,63 @@
+{#
+  "My decks" — the notification feed. Delivery is this page, not an email.
+#}
+<div class="ccr-dashboard" data-ccr-dashboard>
+  <p class="ccr-dashboard__intro">
+    Decks generated from this repository. A deck is a point-in-time copy: when the
+    content underneath it changes, it stops being true and shows up here.
+  </p>
+
+  <div class="ccr-dashboard__summary" data-ccr-summary></div>
+
+  <table class="ccr-decks">
+    <thead>
+      <tr>
+        <th>Content</th>
+        <th>Owner</th>
+        <th>Generated</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody data-ccr-rows>
+      {% for row in rows %}
+        <tr class="{{ row.stale ? 'is-stale' : 'is-current' }}" data-ccr-row="{{ row.id }}">
+          <td>
+            {{ row.title }}
+            {#
+              A deck is several slides, so the flag is per slide. "2 of 3 slides
+              are out of date" is a sentence somebody can act on; "this deck is
+              out of date" reads the same whether one slide moved or all of them.
+            #}
+            <ul class="ccr-slides">
+              {% for slide in row.slides %}
+                <li class="{{ slide.stale ? 'is-stale' : 'is-current' }}">
+                  {{ slide.n }}. {{ slide.template }}
+                  {% if slide.items %}<span class="ccr-note">{{ slide.items }} pillars</span>{% endif %}
+                  {% if slide.stale %}<span class="ccr-note">changed {{ slide.changed_ago }} ago</span>{% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </td>
+          <td>{{ row.owner }}</td>
+          <td>{{ row.ago }} ago</td>
+          <td>
+            {% if row.stale %}
+              <span class="ccr-badge ccr-badge--stale">Out of date</span>
+              <span class="ccr-note">{{ row.stale_count }} of {{ row.slide_count }} slide{{ row.slide_count == 1 ? '' : 's' }}</span>
+            {% else %}
+              <span class="ccr-badge ccr-badge--current">Up to date</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if row.regenerate %}
+              <a class="ccr-button ccr-button--small" href="{{ row.regenerate }}">Regenerate</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+        <tr class="ccr-decks__empty"><td colspan="5">No decks have been generated yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

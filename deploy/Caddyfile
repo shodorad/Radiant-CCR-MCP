@@ -1,0 +1,17 @@
+# TLS is automatic (Let's Encrypt) once both names resolve to this VM.
+# No access log is configured on purpose: an MCP key can travel in the URL path.
+
+{$CCR_HOST} {
+	# The CCR's machine endpoints are for the MCP and renderer on the Docker
+	# network only. They have no auth of their own (a stated POC shortcut), and
+	# /ccr/record without view=public, like JSON:API, returns NOT FOR PUBLICATION
+	# material. Editors use the admin UI, which needs a login.
+	@internal path /ccr/record /ccr/records /ccr/generation-log /ccr/decks /ccr/deck/* /jsonapi /jsonapi/*
+	respond @internal 403
+
+	reverse_proxy drupal:80
+}
+
+{$MCP_HOST} {
+	reverse_proxy mcp:3000
+}

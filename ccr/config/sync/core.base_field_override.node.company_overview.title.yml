@@ -1,0 +1,18 @@
+uuid: b4275216-0ff2-4e06-8b73-a7c4c8dd3bc7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.company_overview
+id: node.company_overview.title
+field_name: title
+entity_type: node
+bundle: company_overview
+label: 'Slide and page title'
+description: 'Up to 60 characters.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

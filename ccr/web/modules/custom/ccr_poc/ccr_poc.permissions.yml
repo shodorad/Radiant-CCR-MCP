@@ -1,0 +1,4 @@
+'generate ccr decks':
+  title: 'Generate a deck from a content record'
+'publish ccr content':
+  title: 'Publish a content record to the website'

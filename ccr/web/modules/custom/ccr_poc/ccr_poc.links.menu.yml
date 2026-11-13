@@ -1,0 +1,6 @@
+ccr_poc.dashboard:
+  title: 'My decks'
+  description: 'Decks generated from this repository, and whether the content underneath them has moved.'
+  route_name: ccr_poc.dashboard
+  parent: system.admin_content
+  weight: 10

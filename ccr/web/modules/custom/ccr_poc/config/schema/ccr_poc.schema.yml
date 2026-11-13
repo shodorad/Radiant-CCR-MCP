@@ -1,0 +1,16 @@
+ccr_poc.settings:
+  type: config_object
+  label: 'CCR POC settings'
+  mapping:
+    renderer_url:
+      type: string
+      label: 'Deck renderer base URL'
+    site_url:
+      type: string
+      label: 'Website instance base URL'
+    site_user:
+      type: string
+      label: 'Website instance user'
+    site_pass:
+      type: string
+      label: 'Website instance password'

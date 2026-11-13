@@ -1,0 +1,17 @@
+**/node_modules
+**/.DS_Store
+**/.env
+deploy/.env
+deploy/backups
+.git
+ccr/vendor
+ccr/web/core
+ccr/web/modules/contrib
+ccr/web/themes/contrib
+ccr/web/profiles/contrib
+ccr/web/libraries
+ccr/web/sites/default/files
+ccr/web/sites/default/settings.ddev.php
+ccr/.ddev
+renderer/out
+mcp/dist

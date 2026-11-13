@@ -1,0 +1,307 @@
+<?php
+
+/**
+ * @file
+ * Central Content Repository — POC glue.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ccr_poc_theme(): array {
+  return [
+    'ccr_deck_dashboard' => [
+      'variables' => ['rows' => []],
+    ],
+    'ccr_channel_actions' => [
+      'variables' => ['actions' => [], 'issues' => [], 'stale_decks' => 0],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for the node form.
+ *
+ * There is exactly one text format in this repository, so the "About text
+ * formats" link under every rich text field offers a marketer a page of
+ * documentation about a concept they should never need to meet.
+ *
+ * The *selector* is not touched here. Core already hides it when a field allows
+ * a single format, and it is still read afterwards — by
+ * Drupal\editor\Element::preRenderTextFormat(), which needs the option list to
+ * work out which editor to attach. Removing it produced a white screen on every
+ * edit form; only the help and guidelines are ours to take away.
+ */
+function ccr_poc_form_node_form_alter(array &$form, FormStateInterface $form_state): void {
+  ccr_poc_hide_format_help($form);
+  ccr_poc_offer_writing_assistant($form, $form_state);
+}
+
+/**
+ * Offer "Shorten to fit" beside any line that has outgrown the deck template.
+ *
+ * The counters already tell a marketer a line is too long for the slide and let
+ * them keep it anyway. This adds the next sentence: *here is one that fits, if
+ * you want it.* It is an offer — the suggestion is shown beside the original
+ * and a person chooses — because a repository that rewrote its own content to
+ * suit one channel would be the phase 2 mistake again with better manners.
+ *
+ * Only attached when the deck channel says it has an assistant to ask. The
+ * repository holds no model name and no key; it learns whether the button
+ * should exist the same way it learns what fits, by asking the channel. With no
+ * assistant there is no library, no button and no difference to the form.
+ *
+ * Which line a button is about is told to the channel in the record's words,
+ * from RecordNormaliser — the one list of what each Drupal field is called
+ * outside Drupal. The limit itself is not sent from here at all: the script
+ * reads it off the counter the field already carries, so the number still has
+ * one author, the template's card.
+ */
+function ccr_poc_offer_writing_assistant(array &$form, FormStateInterface $form_state): void {
+  $entity = $form_state->getFormObject()->getEntity();
+  if ($entity->bundle() !== 'company_overview') {
+    return;
+  }
+  if (!\Drupal::service('ccr_poc.renderer')->assistantAvailable()) {
+    return;
+  }
+
+  $form['#attributes']['data-ccr-assist'] = '';
+  $form['#attached']['library'][] = 'ccr_poc/assist';
+  $form['#attached']['drupalSettings']['ccrPoc']['assist'] = [
+    'url' => Url::fromRoute('ccr_poc.suggest')->toString(),
+    'tokenUrl' => Url::fromRoute('system.csrftoken')->toString(),
+    'sources' => \Drupal\ccr_poc\RecordNormaliser::sources(),
+    // What a pillar's description is *about*, so the rewrite can be too.
+    'about' => ['field_pillar_description' => 'field_pillar_name'],
+  ];
+}
+
+/**
+ * Walk a form and switch off the text-format help and guidelines.
+ */
+function ccr_poc_hide_format_help(array &$element): void {
+  foreach (\Drupal\Core\Render\Element::children($element) as $key) {
+    if (!is_array($element[$key])) {
+      continue;
+    }
+    if (isset($element[$key]['#type']) && $element[$key]['#type'] === 'text_format') {
+      $element[$key]['#after_build'][] = 'ccr_poc_strip_format_help';
+    }
+    ccr_poc_hide_format_help($element[$key]);
+  }
+}
+
+/**
+ * After-build callback: hide the text-format help links, nothing else.
+ */
+function ccr_poc_strip_format_help(array $element, FormStateInterface $form_state): array {
+  foreach (['help', 'guidelines'] as $part) {
+    if (isset($element['format'][$part])) {
+      $element['format'][$part]['#access'] = FALSE;
+    }
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view() for nodes.
+ *
+ * Puts both channels on the record itself. A marketer edits here, generates a
+ * deck here and publishes to the site here — they never learn that a renderer
+ * service or a second Drupal exists. That is what H4 is really asking about.
+ */
+function ccr_poc_node_view(array &$build, NodeInterface $node, $display, $view_mode): void {
+  if ($node->bundle() === 'case_study' && $view_mode === 'full') {
+    ccr_poc_case_study_actions($build, $node);
+    return;
+  }
+  if ($node->bundle() !== 'company_overview' || $view_mode !== 'full') {
+    return;
+  }
+
+  $actions = [];
+  if (\Drupal::currentUser()->hasPermission('generate ccr decks')) {
+    $actions[] = [
+      'title' => t('Build a deck'),
+      'url' => Url::fromRoute('ccr_poc.generate_deck', ['node' => $node->id()])->toString(),
+      'primary' => TRUE,
+      // The label changed with the button's behaviour in unwelding phase 3. It
+      // used to download a file on click; it now opens the page where you
+      // choose the templates and which pillars each slide shows, because the
+      // repository holds more pillars than any template does and the choice is
+      // the channel's to make. Calling it "Generate deck" would have promised a
+      // download and delivered a form.
+      'hint' => t('Choose templates and which pillars each slide shows, then generate.'),
+    ];
+  }
+  if (\Drupal::currentUser()->hasPermission('publish ccr content')) {
+    $actions[] = [
+      'title' => t('Publish to site'),
+      'url' => Url::fromRoute('ccr_poc.publish_to_site', ['node' => $node->id()])->toString(),
+      'primary' => FALSE,
+      'hint' => t('Pushes this record to the website instance.'),
+    ];
+  }
+
+  // Warn before the deck is made, not after it comes out broken.
+  $issues = [];
+  try {
+    $issues = \Drupal::service('ccr_poc.renderer')->preflight($node);
+  }
+  catch (\Throwable) {
+    // The renderer being down is not a reason to fail to show the record.
+  }
+
+  $build['ccr_actions'] = [
+    '#theme' => 'ccr_channel_actions',
+    '#actions' => $actions,
+    '#issues' => $issues,
+    '#stale_decks' => ccr_poc_stale_count($node),
+    '#weight' => -50,
+    '#attached' => ['library' => ['ccr_poc/dashboard']],
+  ];
+  $build['#cache']['max-age'] = 0;
+}
+
+/**
+ * How many decks drawing on this record are now out of date.
+ *
+ * Counted per *deck*, not per slide. A deck with three stale slides is one deck
+ * to regenerate, and telling the editor they have put "3 decks" out of date
+ * when they have one would be a number that reads as worse than the truth.
+ */
+function ccr_poc_stale_count(NodeInterface $node): int {
+  $storage = \Drupal::entityTypeManager()->getStorage('ccr_deck_generation');
+  $entries = $storage->loadByProperties(['content_nid' => $node->id()]);
+
+  $stale = [];
+  foreach ($entries as $entry) {
+    if ($entry->isStale()) {
+      $stale[$entry->get('deck_id')->value ?: (string) $entry->id()] = TRUE;
+    }
+  }
+  return count($stale);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_update() for nodes.
+ *
+ * Staleness itself is computed, not stored — see DeckGeneration. What happens
+ * here is only the telling: the editor who just changed the content is shown,
+ * immediately, that they have put decks out of date. Without this the drift is
+ * silent, and silent drift is the problem the whole POC is about.
+ */
+function ccr_poc_node_update(EntityInterface $node): void {
+  if ($node instanceof NodeInterface && $node->bundle() === 'case_study') {
+    ccr_poc_case_study_updated($node);
+  }
+  if (!$node instanceof NodeInterface || $node->bundle() !== 'company_overview') {
+    return;
+  }
+  $stale = ccr_poc_stale_count($node);
+  if ($stale === 0) {
+    return;
+  }
+  \Drupal::messenger()->addWarning(t(
+    '@count deck@s generated from "@title" @is now out of date. <a href=":url">See which</a>.',
+    [
+      '@count' => $stale,
+      '@s' => $stale === 1 ? '' : 's',
+      '@is' => $stale === 1 ? 'is' : 'are',
+      '@title' => $node->label(),
+      ':url' => Url::fromRoute('ccr_poc.dashboard')->toString(),
+    ]
+  ));
+}
+
+/**
+ * A case study's channels, on the record they are written from (plan.md §8 A2).
+ *
+ * The company overview's page offers "Build a deck" and "Publish to site"
+ * because both channels render the record as it is. A case study's channels
+ * each need copy written for them first, so the page says where each one
+ * stands — nothing written, a draft, approved, or out of date because the
+ * source moved — and links to where that copy is written.
+ */
+function ccr_poc_case_study_actions(array &$build, NodeInterface $node): void {
+  $store = \Drupal::service('ccr_poc.copy_store');
+  $channels = [];
+  foreach (\Drupal::service('ccr_poc.renderer')->writtenTemplates('case_study') as $id => $template) {
+    $channels[$id] = t('Slide: @name', ['@name' => $template['name']]);
+  }
+  $channels[\Drupal\ccr_poc\CopyStore::WEBSITE] = t('Website case study page');
+
+  $words = [
+    'none' => t('not written yet'),
+    'draft' => t('draft — not approved'),
+    'approved' => t('approved'),
+    'out-of-date' => t('out of date — the source changed after it was written'),
+  ];
+
+  $actions = [];
+  $stale = 0;
+  foreach ($channels as $channel => $label) {
+    $state = $store->state($node, $channel);
+    $stale += $state === 'out-of-date' ? 1 : 0;
+    $actions[] = [
+      'title' => t('@label (@state)', ['@label' => $label, '@state' => $words[$state]]),
+      'url' => Url::fromRoute('ccr_poc.write', ['node' => $node->id(), 'channel' => $channel])->toString(),
+      'primary' => $state !== 'approved',
+      'hint' => t('Draft, check and approve this channel\'s copy from the source material.'),
+    ];
+  }
+
+  $issues = [];
+  if ($stale) {
+    $issues[] = [
+      'blocking' => FALSE,
+      'label' => t('Approved copy'),
+      'message' => t('@n channel(s) were written from an earlier version of this source material. Redraft or re-approve them.', ['@n' => $stale]),
+    ];
+  }
+
+  $build['ccr_actions'] = [
+    '#theme' => 'ccr_channel_actions',
+    '#actions' => $actions,
+    '#issues' => $issues,
+    '#stale_decks' => ccr_poc_stale_count($node),
+    '#weight' => -50,
+    '#attached' => ['library' => ['ccr_poc/dashboard']],
+  ];
+  $build['#cache']['max-age'] = 0;
+}
+
+/**
+ * Say, on save, which channels' approved copy the edit has put out of date.
+ * The deck log's own warning (below, for decks) covers slides already made;
+ * this covers copy that was approved but may not have been used yet.
+ */
+function ccr_poc_case_study_updated(NodeInterface $node): void {
+  $stale = [];
+  foreach (\Drupal::service('ccr_poc.copy_store')->channels($node) as $channel => $entry) {
+    if (($entry['status'] ?? '') === 'approved' && \Drupal\ccr_poc\CopyStore::isStale($entry, $node)) {
+      $stale[] = $channel === \Drupal\ccr_poc\CopyStore::WEBSITE ? t('the website page') : t('the slide (@t)', ['@t' => $channel]);
+    }
+  }
+  if ($stale) {
+    \Drupal::messenger()->addWarning(t('The approved copy for @list was written from the previous source material and is now out of date.', [
+      '@list' => implode(' and ', array_map('strval', $stale)),
+    ]));
+  }
+  $decks = ccr_poc_stale_count($node);
+  if ($decks) {
+    \Drupal::messenger()->addWarning(t('@count deck@s made from "@title" @is now out of date. <a href=":url">See which</a>.', [
+      '@count' => $decks,
+      '@s' => $decks === 1 ? '' : 's',
+      '@is' => $decks === 1 ? 'is' : 'are',
+      '@title' => $node->label(),
+      ':url' => Url::fromRoute('ccr_poc.dashboard')->toString(),
+    ]));
+  }
+}

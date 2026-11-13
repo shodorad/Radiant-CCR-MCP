@@ -1,0 +1,8 @@
+name: 'CCR POC'
+type: module
+description: 'Turns this Drupal into a content repository: generate a deck from a record, publish it to the website instance, and track which decks have gone stale.'
+package: 'Radiant CCR'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:jsonapi

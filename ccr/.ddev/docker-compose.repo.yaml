@@ -1,0 +1,8 @@
+#ddev-silent-no-warn
+# Mount the POC repository root inside the web container so scripts can read
+# shared assets — the phase 0 fixture, the renderer's icon set — without either
+# Drupal instance keeping its own copy of them.
+services:
+  web:
+    volumes:
+      - "../../:/mnt/repo"

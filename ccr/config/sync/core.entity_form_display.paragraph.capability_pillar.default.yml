@@ -1,0 +1,50 @@
+uuid: f509d5dd-9590-4369-adc5-5853d7a7d0c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.capability_pillar.field_icon_token
+    - field.field.paragraph.capability_pillar.field_pillar_description
+    - field.field.paragraph.capability_pillar.field_pillar_name
+    - paragraphs.paragraphs_type.capability_pillar
+  module:
+    - maxlength
+    - text
+id: paragraph.capability_pillar.default
+targetEntityType: paragraph
+bundle: capability_pillar
+mode: default
+content:
+  field_icon_token:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_pillar_description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 90
+        maxlength_js_label: 'The <em>@limit</em>-character deck template fits about this much. <strong>@remaining</strong> left — you can go over.'
+        maxlength_js_enforce: false
+  field_pillar_name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 40
+      placeholder: ''
+    third_party_settings:
+      maxlength:
+        maxlength_js: 36
+        maxlength_js_label: 'The <em>@limit</em>-character deck template fits about this much. <strong>@remaining</strong> left — you can go over.'
+        maxlength_js_enforce: false
+hidden:
+  created: true
+  status: true

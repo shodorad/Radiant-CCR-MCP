@@ -1,0 +1,14 @@
+{
+  "headline": "Placing loads in 12 minutes instead of 47 for Kestrelmoor Freight Cooperative",
+  "standfirst": "Kestrelmoor Freight Cooperative's dispatch desk ran on a 1990s system and a telephone. Radiant modernized it in nine months, and a load now finds a carrier in a median of 12 minutes instead of 47.",
+  "client_summary": "Kestrelmoor Freight Cooperative is a member-owned freight network in the US Midwest: about 1,400 independent carriers across nine states who share one dispatch desk, one load board and one back office.",
+  "challenge": "<p>Dispatch still ran on an IBM i system from the 1990s, with roughly 310,000 lines of RPG. Loads arrived by phone and email, were keyed in by hand, and were offered to member carriers one call at a time — a median of 47 minutes from arrival to acceptance.</p><p>Nobody could see where trucks were until drivers called in, so many ran home empty. And two of the four people who understood the code were due to retire within eighteen months.</p>",
+  "approach": "<p>Radiant ran the work as an <strong>AI-enabled modernization</strong> over nine months. Conversion agents drafted Java services from the RPG business rules and engineers reviewed every one; about 60% of modules converted with minor edits, and the rest were rewritten by hand.</p><p>On the new platform we built a load-matching service that ranks available carriers by location, equipment and hours of service, a carrier app for accepting loads with one tap, and a data platform that brings telematics, load and settlement data together.</p><p>Every converted rule was tested against a year of Kestrelmoor's real past loads before the old system was switched off, and the dispatch desk was trained to supervise matches rather than make calls.</p>",
+  "outcomes": [
+    { "key": "outcomes-1", "weight": 1, "figure": "74%", "label": "reduction in median time from a load arriving to a carrier accepting it" },
+    { "key": "outcomes-2", "weight": 2, "figure": "18%", "label": "fewer empty miles across the member fleet, Q4 against the previous Q4" },
+    { "key": "outcomes-3", "weight": 3, "figure": "82%", "label": "of member carriers active in the app within six months of launch" }
+  ],
+  "quote": "Converting the old code was the part everyone was scared of. Having the new system replay a year of real loads before we switched was what let the board sleep.",
+  "quote_attribution": "Dana Okafor, Chief Operating Officer, Kestrelmoor Freight Cooperative"
+}
